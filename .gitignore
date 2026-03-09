@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env/
+
+# HuggingFace cache
+.cache/
+
+# Vector DB files
+vector_db/
+
+# Embeddings
+embeddings/
+
+# OS files
+.DS_Store
+Thumbs.db
