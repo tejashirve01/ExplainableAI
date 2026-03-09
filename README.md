@@ -3,6 +3,7 @@ Installation
 Clone the repository:
 
 git clone <repository-url>
+
 cd XAI
 
 Create a virtual environment:
@@ -27,6 +28,7 @@ Then enter a question in the terminal.
 Example:
 
 What are normal forms in databases?
+
 Technologies Used
 
 Python
