@@ -91,6 +91,7 @@ def ask_question(query: Query):
         {
             "text": r["chunk"],
             "source": r.get("source", "unknown"),
+            "page": r.get("page", "unknown"),
             "score": float(r["score"])
         }
         for r in results[:3]
@@ -99,7 +100,7 @@ def ask_question(query: Query):
         "step": 3,
         "title": "Top Chunks Selected",
         "detail": "\n".join([
-            f"Chunk {i+1}: {c['source']} | score: {c['score']:.4f} | preview: {c['text'][:80]}..."
+            f"Chunk {i+1}: {c['source']} | page {c['page']} | score: {c['score']:.4f} | preview: {c['text'][:80]}..."
             for i, c in enumerate(top_chunks)
         ]),
         "duration_ms": round((time.time() - t0) * 1000, 2)

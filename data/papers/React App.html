@@ -1,6 +1,45 @@
-import { useState } from "react";
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="icon" href="http://localhost:3000/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="http://localhost:3000/logo192.png">
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="http://localhost:3000/manifest.json">
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
 
-const styles = `
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  <script defer="" src="./React App_files/bundle.js.download"></script><style>body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9pbmRleC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxTQUFTO0VBQ1Q7O2NBRVk7RUFDWixtQ0FBbUM7RUFDbkMsa0NBQWtDO0FBQ3BDOztBQUVBO0VBQ0U7YUFDVztBQUNiIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIG1hcmdpbjogMDtcbiAgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgJ1NlZ29lIFVJJywgJ1JvYm90bycsICdPeHlnZW4nLFxuICAgICdVYnVudHUnLCAnQ2FudGFyZWxsJywgJ0ZpcmEgU2FucycsICdEcm9pZCBTYW5zJywgJ0hlbHZldGljYSBOZXVlJyxcbiAgICBzYW5zLXNlcmlmO1xuICAtd2Via2l0LWZvbnQtc21vb3RoaW5nOiBhbnRpYWxpYXNlZDtcbiAgLW1vei1vc3gtZm9udC1zbW9vdGhpbmc6IGdyYXlzY2FsZTtcbn1cblxuY29kZSB7XG4gIGZvbnQtZmFtaWx5OiBzb3VyY2UtY29kZS1wcm8sIE1lbmxvLCBNb25hY28sIENvbnNvbGFzLCAnQ291cmllciBOZXcnLFxuICAgIG1vbm9zcGFjZTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style></head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"><style>
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -590,247 +629,27 @@ const styles = `
     border-left: 2px solid #1c1a2e;
     padding-left: 12px;
   }
-`;
+</style><div class="app"><div class="header"><div class="header-label">XAI v1.0</div><h1>Explainable <span>AI</span></h1></div><div class="search-row"><div class="input-wrap"><input placeholder="Ask a question about your documents..." type="text" value="what is dbms?" fdprocessedid="1a8nub"></div><button class="btn-primary" fdprocessedid="v7h02u">Ask</button></div><div class="result"><div class="card"><div class="card-label">Answer</div><p class="answer-text">A Database Management System (DBMS) is a computerized record-keeping system and a repository or container for a collection of computerized data files. Its overall purpose is to allow users to define, store, retrieve, and update information contained in the database on demand. A database system, which a DBMS facilitates, is a collection of interrelated data and a set of programs that enable users to access and modify this data, providing an abstract view of the data by hiding storage and maintenance details.</p></div><div class="meta-row"><div class="card"><div class="card-label">Confidence score</div><div class="confidence-val">61.9%</div><div class="bar-track"><div class="bar-fill" style="width: 62%;"></div></div></div><div class="card"><div class="card-label">Confidence level</div><div class="confidence-val" style="font-size: 20px; margin-top: 4px;">High</div><span class="badge badge-high">high</span></div></div><div class="card"><div class="card-label">Source Location</div><div style="display: flex; flex-direction: column; gap: 10px;"><div class="source-location-item"><span class="source-location-icon">📄</span><div style="flex: 1 1 0%;"><div class="source-location-file">DATABASE MANAGEMENT SYSTEMS.pdf</div><div class="source-location-meta"><span class="source-pill source-pill-rank">#1 match</span><span class="source-pill source-pill-page">Page 1</span><span class="source-pill source-pill-score">score: 0.6824</span></div></div></div><div class="source-location-item"><span class="source-location-icon">📄</span><div style="flex: 1 1 0%;"><div class="source-location-file">DATABASE MANAGEMENT SYSTEMS.pdf</div><div class="source-location-meta"><span class="source-pill source-pill-rank">#2 match</span><span class="source-pill source-pill-page">Page 6</span><span class="source-pill source-pill-score">score: 0.5948</span></div></div></div><div class="source-location-item"><span class="source-location-icon">📄</span><div style="flex: 1 1 0%;"><div class="source-location-file">DATABASE MANAGEMENT SYSTEMS.pdf</div><div class="source-location-meta"><span class="source-pill source-pill-rank">#3 match</span><span class="source-pill source-pill-page">Page 9</span><span class="source-pill source-pill-score">score: 0.5789</span></div></div></div></div></div><div class="card"><div class="card-label">Reasoning</div><pre class="reasoning-text">- **Chunk 2** was most relevant because it directly defines a DBMS: "A Database management system is a computerized record-keeping system. It is a repository or a container for collection of computerized data files. The overall purpose of DBMS is to allow he users to define, store, retrieve and update the information contained in the database on demand."
+- **Chunk 3** was also highly relevant as it provided an additional definition related to a database system (which a DBMS manages): "A database system is a collection of interrelated data and a set of programs that allow users to access and modify these data. A major purpose of a database system is to provide users with an abstract view of the data. That is, the system hides certain details of how the data are stored and maintained."
+- The specific information from these chunks directly supports the definition of DBMS and its purpose.
+- There are no significant limitations or gaps in the retrieved context for defining what a DBMS is, as both its nature as a record-keeping system and its function in managing data access are well covered.
 
-function SourcesPage({ chunks, question, onBack }) {
-  return (
-    <div className="sources-page">
-      <div className="sources-header">
-        <div>
-          <div className="header-label">Retrieved Sources</div>
-          <div className="sources-title">Top 3 Chunks</div>
-          <div className="sources-subtitle">"{question}"</div>
-        </div>
-        <button className="btn-back" onClick={onBack}>← Back to answer</button>
-      </div>
+Retrieved chunks used:
+  - Chunk 1: DATABASE MANAGEMENT SYSTEMS.pdf (score: 0.682)
+  - Chunk 2: DATABASE MANAGEMENT SYSTEMS.pdf (score: 0.595)
+  - Chunk 3: DATABASE MANAGEMENT SYSTEMS.pdf (score: 0.579)
 
-      {chunks.map((chunk, i) => (
-        <div className="chunk-card" key={i}>
-          <div className="chunk-top">
-            <span className="chunk-rank">Chunk #{i + 1}</span>
-            <div className="chunk-meta">
-              <span className="chunk-source">{chunk.source}</span>
-              <span className="chunk-page">Page {chunk.page ?? "—"}</span>
-              <span className="chunk-score">score: {chunk.score.toFixed(4)}</span>
-            </div>
-          </div>
-          <p className="chunk-text">{chunk.text}</p>
-          <div className="chunk-score-bar">
-            <div className="chunk-score-fill" style={{ width: `${Math.round(chunk.score * 100)}%` }} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+Confidence note: The provided chunks offer clear and direct definitions of a DBMS and its functions.</pre></div><div class="card"><div class="card-label">Keywords</div><div class="keywords-wrap"><span class="keyword">information</span><span class="keyword">data</span><span class="keyword">dbms</span><span class="keyword">database</span><span class="keyword">autonomous</span></div></div><div class="footer-btns"><button class="btn-outline" fdprocessedid="rz8dpc">View Top 3 Chunks →</button><button class="btn-trace" fdprocessedid="t6m0q">Trace Viewer ⟩</button></div></div></div></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-function TracePage({ traces, question, onBack }) {
-  const totalMs = traces.length > 0 ? traces[traces.length - 1].duration_ms : 0;
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-  return (
-    <div className="trace-page">
-      <div className="trace-header">
-        <div>
-          <div className="header-label">Pipeline Trace</div>
-          <div className="trace-title">Trace Viewer</div>
-          <div className="sources-subtitle">"{question}"</div>
-          <div className="trace-total">Total time: {totalMs}ms — {traces.length} steps</div>
-        </div>
-        <button className="btn-back" onClick={onBack}>← Back to answer</button>
-      </div>
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  
 
-      <div className="timeline">
-        {traces.map((trace, i) => (
-          <div className="trace-item" key={i}>
-            <div className={`trace-dot ${i === traces.length - 1 ? "last" : ""}`} />
-            <div className="trace-card">
-              <div className="trace-card-top">
-                <div>
-                  <div className="trace-step-label">Step {trace.step}</div>
-                  <div className="trace-step-title">{trace.title}</div>
-                </div>
-                <span className="trace-duration">{trace.duration_ms}ms</span>
-              </div>
-              <div className="trace-detail">{trace.detail}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default function App() {
-  const [question, setQuestion] = useState("");
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState("main");
-
-  const askQuestion = async () => {
-    if (!question.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    setPage("main");
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-
-      if (!response.ok) throw new Error(`Server error: ${response.status}`);
-      const data = await response.json();
-      setResult(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleKey = (e) => {
-    if (e.key === "Enter") askQuestion();
-  };
-
-  const confidencePct = result ? Math.round(result.confidence * 100) : 0;
-  const badgeClass =
-    result?.confidence_level === "high"   ? "badge-high"   :
-    result?.confidence_level === "low"    ? "badge-low"    : "badge-medium";
-
-  if (page === "sources" && result?.chunks) {
-    return (
-      <>
-        <style>{styles}</style>
-        <SourcesPage chunks={result.chunks} question={question} onBack={() => setPage("main")} />
-      </>
-    );
-  }
-
-  if (page === "trace" && result?.traces) {
-    return (
-      <>
-        <style>{styles}</style>
-        <TracePage traces={result.traces} question={question} onBack={() => setPage("main")} />
-      </>
-    );
-  }
-
-  return (
-    <>
-      <style>{styles}</style>
-      <div className="app">
-
-        <div className="header">
-          <div className="header-label">XAI v1.0</div>
-          <h1>Explainable <span>AI</span></h1>
-        </div>
-
-        <div className="search-row">
-          <div className="input-wrap">
-            <input
-              type="text"
-              placeholder="Ask a question about your documents..."
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              onKeyDown={handleKey}
-            />
-          </div>
-          <button className="btn-primary" onClick={askQuestion} disabled={loading || !question.trim()}>
-            {loading ? <><span className="spinner" />Thinking</> : "Ask"}
-          </button>
-        </div>
-
-        {error && <div className="error-card">Error: {error}</div>}
-
-        {result && (
-          <div className="result">
-
-            <div className="card">
-              <div className="card-label">Answer</div>
-              <p className="answer-text">{result.answer}</p>
-            </div>
-
-            <div className="meta-row">
-              <div className="card">
-                <div className="card-label">Confidence score</div>
-                <div className="confidence-val">{(result.confidence * 100).toFixed(1)}%</div>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: `${confidencePct}%` }} />
-                </div>
-              </div>
-
-              <div className="card">
-                <div className="card-label">Confidence level</div>
-                <div className="confidence-val" style={{ fontSize: "20px", marginTop: "4px" }}>
-                  {result.confidence_level
-                    ? result.confidence_level.charAt(0).toUpperCase() + result.confidence_level.slice(1)
-                    : "—"}
-                </div>
-                {result.confidence_level && (
-                  <span className={`badge ${badgeClass}`}>{result.confidence_level}</span>
-                )}
-              </div>
-            </div>
-
-            {/* Source Location Card */}
-            {result.chunks?.length > 0 && (
-              <div className="card">
-                <div className="card-label">Source Location</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {result.chunks.map((chunk, i) => (
-                    <div className="source-location-item" key={i}>
-                      <span className="source-location-icon">📄</span>
-                      <div style={{ flex: 1 }}>
-                        <div className="source-location-file">{chunk.source}</div>
-                        <div className="source-location-meta">
-                          <span className="source-pill source-pill-rank">#{i + 1} match</span>
-                          <span className="source-pill source-pill-page">Page {chunk.page ?? "—"}</span>
-                          <span className="source-pill source-pill-score">score: {chunk.score.toFixed(4)}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {result.reasoning && (
-              <div className="card">
-                <div className="card-label">Reasoning</div>
-                <pre className="reasoning-text">{result.reasoning}</pre>
-              </div>
-            )}
-
-            {result.keywords?.length > 0 && (
-              <div className="card">
-                <div className="card-label">Keywords</div>
-                <div className="keywords-wrap">
-                  {result.keywords.map((k, i) => (
-                    <span className="keyword" key={i}>{k}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="footer-btns">
-              {result.chunks?.length > 0 && (
-                <button className="btn-outline" onClick={() => setPage("sources")}>
-                  View Top 3 Chunks →
-                </button>
-              )}
-              {result.traces?.length > 0 && (
-                <button className="btn-trace" onClick={() => setPage("trace")}>
-                  Trace Viewer ⟩
-                </button>
-              )}
-            </div>
-
-          </div>
-        )}
-      </div>
-    </>
-  );
-}
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span></body></html>
