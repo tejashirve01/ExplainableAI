@@ -111,6 +111,23 @@ const styles = `
 
   .btn-outline:hover { border-color: #7c6de8; background: #1c1a2e; }
 
+  .btn-trace {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid #2a3828;
+    border-radius: 8px;
+    color: #4ade80;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-trace:hover { border-color: #4ade80; background: #0d2e1a; }
+
   .btn-back {
     padding: 10px 20px;
     background: transparent;
@@ -264,9 +281,10 @@ const styles = `
     font-size: 13px;
   }
 
-  .sources-footer {
+  .footer-btns {
     display: flex;
     justify-content: flex-end;
+    gap: 12px;
     padding-top: 4px;
   }
 
@@ -308,7 +326,6 @@ const styles = `
     border-radius: 12px;
     padding: 28px;
     margin-bottom: 20px;
-    position: relative;
     transition: border-color 0.2s;
   }
 
@@ -375,6 +392,148 @@ const styles = `
     background: linear-gradient(90deg, #6b5fd6, #a294f5);
     border-radius: 2px;
   }
+
+  /* ---- Trace Page ---- */
+  .trace-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 32px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .trace-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .trace-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #f0eeff;
+    letter-spacing: -0.02em;
+  }
+
+  .trace-subtitle {
+    font-size: 12px;
+    color: #3d3a52;
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .trace-total {
+    font-size: 11px;
+    color: #4ade80;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, #2a2838, #2a2838 90%, transparent);
+  }
+
+  .trace-item {
+    position: relative;
+    margin-bottom: 28px;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .trace-item:nth-child(1) { animation-delay: 0.05s; }
+  .trace-item:nth-child(2) { animation-delay: 0.10s; }
+  .trace-item:nth-child(3) { animation-delay: 0.15s; }
+  .trace-item:nth-child(4) { animation-delay: 0.20s; }
+  .trace-item:nth-child(5) { animation-delay: 0.25s; }
+  .trace-item:nth-child(6) { animation-delay: 0.30s; }
+  .trace-item:nth-child(7) { animation-delay: 0.35s; }
+  .trace-item:nth-child(8) { animation-delay: 0.40s; }
+
+  .trace-dot {
+    position: absolute;
+    left: -33px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #7c6de8;
+    border: 2px solid #0a0a0f;
+    box-shadow: 0 0 0 1px #7c6de8;
+  }
+
+  .trace-dot.last {
+    background: #4ade80;
+    box-shadow: 0 0 0 1px #4ade80;
+  }
+
+  .trace-card {
+    background: #13121a;
+    border: 1px solid #2a2838;
+    border-radius: 10px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+
+  .trace-card:hover { border-color: #3d3a52; }
+
+  .trace-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .trace-step-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #3d3a52;
+    font-weight: 500;
+  }
+
+  .trace-step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0eeff;
+    margin-bottom: 2px;
+  }
+
+  .trace-duration {
+    font-size: 11px;
+    color: #4ade80;
+    background: #0d2e1a;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid #166534;
+    white-space: nowrap;
+  }
+
+  .trace-detail {
+    font-size: 12px;
+    line-height: 1.8;
+    color: #6b6880;
+    white-space: pre-wrap;
+    font-weight: 300;
+    margin-top: 8px;
+    border-left: 2px solid #1c1a2e;
+    padding-left: 12px;
+  }
 `;
 
 function SourcesPage({ chunks, question, onBack }) {
@@ -386,9 +545,7 @@ function SourcesPage({ chunks, question, onBack }) {
           <div className="sources-title">Top 3 Chunks</div>
           <div className="sources-subtitle">"{question}"</div>
         </div>
-        <button className="btn-back" onClick={onBack}>
-          ← Back to answer
-        </button>
+        <button className="btn-back" onClick={onBack}>← Back to answer</button>
       </div>
 
       {chunks.map((chunk, i) => (
@@ -402,13 +559,46 @@ function SourcesPage({ chunks, question, onBack }) {
           </div>
           <p className="chunk-text">{chunk.text}</p>
           <div className="chunk-score-bar">
-            <div
-              className="chunk-score-fill"
-              style={{ width: `${Math.round(chunk.score * 100)}%` }}
-            />
+            <div className="chunk-score-fill" style={{ width: `${Math.round(chunk.score * 100)}%` }} />
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+function TracePage({ traces, question, onBack }) {
+  const totalMs = traces.length > 0 ? traces[traces.length - 1].duration_ms : 0;
+
+  return (
+    <div className="trace-page">
+      <div className="trace-header">
+        <div>
+          <div className="header-label">Pipeline Trace</div>
+          <div className="trace-title">Trace Viewer</div>
+          <div className="sources-subtitle">"{question}"</div>
+          <div className="trace-total">Total time: {totalMs}ms — {traces.length} steps</div>
+        </div>
+        <button className="btn-back" onClick={onBack}>← Back to answer</button>
+      </div>
+
+      <div className="timeline">
+        {traces.map((trace, i) => (
+          <div className="trace-item" key={i}>
+            <div className={`trace-dot ${i === traces.length - 1 ? "last" : ""}`} />
+            <div className="trace-card">
+              <div className="trace-card-top">
+                <div>
+                  <div className="trace-step-label">Step {trace.step}</div>
+                  <div className="trace-step-title">{trace.title}</div>
+                </div>
+                <span className="trace-duration">{trace.duration_ms}ms</span>
+              </div>
+              <div className="trace-detail">{trace.detail}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -418,7 +608,7 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState("main"); // "main" | "sources"
+  const [page, setPage] = useState("main");
 
   const askQuestion = async () => {
     if (!question.trim()) return;
@@ -457,11 +647,16 @@ export default function App() {
     return (
       <>
         <style>{styles}</style>
-        <SourcesPage
-          chunks={result.chunks}
-          question={question}
-          onBack={() => setPage("main")}
-        />
+        <SourcesPage chunks={result.chunks} question={question} onBack={() => setPage("main")} />
+      </>
+    );
+  }
+
+  if (page === "trace" && result?.traces) {
+    return (
+      <>
+        <style>{styles}</style>
+        <TracePage traces={result.traces} question={question} onBack={() => setPage("main")} />
       </>
     );
   }
@@ -541,13 +736,18 @@ export default function App() {
               </div>
             )}
 
-            {result.chunks?.length > 0 && (
-              <div className="sources-footer">
+            <div className="footer-btns">
+              {result.chunks?.length > 0 && (
                 <button className="btn-outline" onClick={() => setPage("sources")}>
-                  View Top 3 Source Chunks →
+                  View Top 3 Chunks →
                 </button>
-              </div>
-            )}
+              )}
+              {result.traces?.length > 0 && (
+                <button className="btn-trace" onClick={() => setPage("trace")}>
+                  Trace Viewer ⟩
+                </button>
+              )}
+            </div>
 
           </div>
         )}
