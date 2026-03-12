@@ -1,20 +1,67 @@
-# Python
-__pycache__/
-*.pyc
 
-# Virtual environment
+# Python
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.log
+
+# Virtual environments
+
 venv/
 .env/
+.env.*
 
-# HuggingFace cache
+# Python build files
+
+build/
+dist/
+*.egg-info/
+
+# HuggingFace / ML caches
+
 .cache/
+.cache/huggingface/
+.cache/torch/
 
-# Vector DB files
+# Vector DB / embeddings
+
 vector_db/
-
-# Embeddings
 embeddings/
+*.faiss
+*.index
+
+# Node / React
+
+frontend/node_modules/
+node_modules/
+
+# React build outputs
+frontend/build/
+build/
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # OS files
+
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDE / Editors
+
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Misc
+
+*.swp
+*.tmp
+*.bak
