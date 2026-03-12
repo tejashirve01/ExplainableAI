@@ -65,3 +65,7 @@ desktop.ini
 *.swp
 *.tmp
 *.bak
+
+# Env
+
+.env

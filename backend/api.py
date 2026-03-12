@@ -17,7 +17,6 @@ from vector_store import VectorStore
 from search_engine import SearchEngine
 from answer_generator import AnswerGenerator
 from explainer import Explainer
-from sentence_explainer import SentenceExplainer
 
 
 app = FastAPI()
@@ -60,8 +59,6 @@ generator = AnswerGenerator()
 
 explainer = Explainer()
 
-sentence_explainer = SentenceExplainer()
-
 print("Pipeline ready!")
 
 
@@ -71,27 +68,42 @@ print("Pipeline ready!")
 def home():
     return {"message": "XAI RAG API running"}
 
-
 @app.post("/ask")
 def ask_question(query: Query):
-
     question = query.question
-
     results = search_engine.search(question)
 
-    answer = generator.generate(question, results)
+    result = generator.generate_with_reasoning(question, results)
+    answer = result["answer"]
 
-    scores = [r["score"] for r in results]
-    confidence = sum(scores) / len(scores)
+    if "cannot find the answer" in answer.lower():
+        return {
+            "answer": answer,
+            "confidence": 0.0,
+            "reasoning": "No relevant chunks found in the documents.",
+            "keywords": None,
+            "chunks": []
+        }
 
+    scores = [float(r["score"]) for r in results]
+    numeric_confidence = round(sum(scores) / len(scores), 4)
     keywords = explainer.extract_keywords(results)
 
-    sentence = sentence_explainer.extract_sentence(results, question)
+    # Include top 3 chunks in response
+    top_chunks = [
+        {
+            "text": r["chunk"],
+            "source": r.get("source", "unknown"),
+            "score": float(r["score"])
+        }
+        for r in results[:3]
+    ]
 
     return {
         "answer": answer,
-        "confidence": float(confidence),
-        "evidence_chunk": results[0]["chunk"],
-        "evidence_sentence": sentence,
-        "keywords": keywords
+        "confidence": float(numeric_confidence),
+        "confidence_level": result["confidence_level"],
+        "reasoning": result["reasoning"],
+        "keywords": keywords,
+        "chunks": top_chunks
     }
