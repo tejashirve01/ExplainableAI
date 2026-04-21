@@ -94,6 +94,25 @@ const styles = `
   .btn-primary:active { transform: scale(0.98); }
   .btn-primary:disabled { background: #2a2838; color: #3d3a52; cursor: not-allowed; }
 
+  .btn-primary-full {
+    width: 100%;
+    padding: 16px;
+    background: #7c6de8;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary-full:hover { background: #9183ef; }
+  .btn-primary-full:active { transform: scale(0.99); }
+  .btn-primary-full:disabled { background: #2a2838; color: #3d3a52; cursor: not-allowed; }
+
   .btn-outline {
     padding: 10px 20px;
     background: transparent;
@@ -145,12 +164,39 @@ const styles = `
 
   .btn-back:hover { border-color: #7c6de8; color: #a294f5; }
 
+  .btn-change {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid #2a2838;
+    border-radius: 8px;
+    color: #3d3a52;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-change:hover { border-color: #7c6de8; color: #a294f5; }
+
   .spinner {
     display: inline-block;
     width: 14px;
     height: 14px;
     border: 2px solid #3d3a52;
     border-top-color: #7c6de8;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  .spinner-green {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #166534;
+    border-top-color: #4ade80;
     border-radius: 50%;
     animation: spin 0.7s linear infinite;
     vertical-align: middle;
@@ -279,6 +325,7 @@ const styles = `
     padding: 20px 24px;
     color: #f87171;
     font-size: 13px;
+    margin-bottom: 16px;
   }
 
   .footer-btns {
@@ -296,12 +343,10 @@ const styles = `
     background: #0d2e1a;
     border: 1px solid #166534;
     border-radius: 10px;
+    margin-bottom: 8px;
   }
 
-  .source-location-icon {
-    font-size: 22px;
-    flex-shrink: 0;
-  }
+  .source-location-icon { font-size: 22px; flex-shrink: 0; }
 
   .source-location-file {
     font-size: 13px;
@@ -311,285 +356,149 @@ const styles = `
     word-break: break-all;
   }
 
-  .source-location-meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+  .source-location-meta { display: flex; gap: 10px; flex-wrap: wrap; }
 
-  .source-pill {
-    font-size: 11px;
-    padding: 2px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
+  .source-pill { font-size: 11px; padding: 2px 10px; border-radius: 20px; font-weight: 500; }
+  .source-pill-page  { background: #166534; color: #bbf7d0; }
+  .source-pill-score { background: #1c1a2e; color: #a294f5; border: 1px solid #2a2838; }
+  .source-pill-rank  { background: #2e2100; color: #fbbf24; border: 1px solid #92400e; }
 
-  .source-pill-page {
-    background: #166534;
-    color: #bbf7d0;
-  }
-
-  .source-pill-score {
-    background: #1c1a2e;
-    color: #a294f5;
-    border: 1px solid #2a2838;
-  }
-
-  .source-pill-rank {
-    background: #2e2100;
-    color: #fbbf24;
-    border: 1px solid #92400e;
-  }
-
-  /* ---- Sources Page ---- */
-  .sources-page {
-    max-width: 860px;
-    margin: 0 auto;
+  /* Upload page */
+  .upload-zone {
+    border: 2px dashed #2a2838;
+    border-radius: 16px;
     padding: 60px 32px;
-    animation: fadeUp 0.4s ease both;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 24px;
   }
 
-  .sources-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+  .upload-zone:hover { border-color: #7c6de8; background: #13121a; }
+  .upload-zone.dragging { border-color: #7c6de8; background: #1c1a2e; }
 
-  .sources-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: #f0eeff;
-    letter-spacing: -0.02em;
-  }
-
-  .sources-subtitle {
-    font-size: 12px;
-    color: #3d3a52;
-    margin-top: 6px;
-    font-weight: 300;
-  }
-
-  .chunk-card {
-    background: #13121a;
+  .upload-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
     border: 1px solid #2a2838;
     border-radius: 12px;
-    padding: 28px;
-    margin-bottom: 20px;
-    transition: border-color 0.2s;
-  }
-
-  .chunk-card:hover { border-color: #3d3a52; }
-
-  .chunk-top {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: center;
+    font-size: 24px;
   }
 
-  .chunk-rank {
+  .upload-title {
     font-family: 'Syne', sans-serif;
-    font-size: 11px;
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #7c6de8;
+    color: #f0eeff;
+    margin-bottom: 8px;
   }
 
-  .chunk-meta {
+  .upload-sub { font-size: 12px; color: #3d3a52; font-weight: 300; }
+  .upload-sub span { color: #7c6de8; }
+
+  .file-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+
+  .file-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .chunk-source {
-    font-size: 11px;
-    color: #3d3a52;
-    background: #1c1a2e;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid #2a2838;
-  }
-
-  .chunk-page {
-    font-size: 11px;
-    color: #bbf7d0;
-    background: #0d2e1a;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid #166534;
-  }
-
-  .chunk-score {
-    font-size: 11px;
-    color: #a294f5;
-    font-weight: 500;
-  }
-
-  .chunk-text {
-    font-size: 13px;
-    line-height: 1.9;
-    color: #9e9bb8;
-    font-weight: 300;
-    border-left: 2px solid #2a2838;
-    padding-left: 16px;
-  }
-
-  .chunk-score-bar {
-    margin-top: 18px;
-    height: 2px;
-    background: #2a2838;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .chunk-score-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #6b5fd6, #a294f5);
-    border-radius: 2px;
-  }
-
-  /* ---- Trace Page ---- */
-  .trace-page {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 60px 32px;
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .trace-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 40px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .trace-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-    color: #f0eeff;
-    letter-spacing: -0.02em;
-  }
-
-  .trace-total {
-    font-size: 11px;
-    color: #4ade80;
-    margin-top: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .timeline {
-    position: relative;
-    padding-left: 40px;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 14px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, #2a2838, #2a2838 90%, transparent);
-  }
-
-  .trace-item {
-    position: relative;
-    margin-bottom: 28px;
-    animation: fadeUp 0.4s ease both;
-  }
-
-  .trace-item:nth-child(1) { animation-delay: 0.05s; }
-  .trace-item:nth-child(2) { animation-delay: 0.10s; }
-  .trace-item:nth-child(3) { animation-delay: 0.15s; }
-  .trace-item:nth-child(4) { animation-delay: 0.20s; }
-  .trace-item:nth-child(5) { animation-delay: 0.25s; }
-  .trace-item:nth-child(6) { animation-delay: 0.30s; }
-  .trace-item:nth-child(7) { animation-delay: 0.35s; }
-  .trace-item:nth-child(8) { animation-delay: 0.40s; }
-
-  .trace-dot {
-    position: absolute;
-    left: -33px;
-    top: 14px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #7c6de8;
-    border: 2px solid #0a0a0f;
-    box-shadow: 0 0 0 1px #7c6de8;
-  }
-
-  .trace-dot.last {
-    background: #4ade80;
-    box-shadow: 0 0 0 1px #4ade80;
-  }
-
-  .trace-card {
+    gap: 12px;
+    padding: 12px 16px;
     background: #13121a;
     border: 1px solid #2a2838;
-    border-radius: 10px;
-    padding: 20px 24px;
-    transition: border-color 0.2s;
+    border-radius: 8px;
   }
 
-  .trace-card:hover { border-color: #3d3a52; }
+  .file-icon { font-size: 16px; flex-shrink: 0; }
 
-  .trace-card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .trace-step-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #3d3a52;
-    font-weight: 500;
-  }
-
-  .trace-step-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #f0eeff;
-    margin-bottom: 2px;
-  }
-
-  .trace-duration {
-    font-size: 11px;
-    color: #4ade80;
-    background: #0d2e1a;
-    padding: 2px 10px;
-    border-radius: 20px;
-    border: 1px solid #166534;
+  .file-name {
+    flex: 1;
+    font-size: 13px;
+    color: #d4d0e8;
+    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .trace-detail {
-    font-size: 12px;
-    line-height: 1.8;
-    color: #6b6880;
-    white-space: pre-wrap;
-    font-weight: 300;
-    margin-top: 8px;
-    border-left: 2px solid #1c1a2e;
-    padding-left: 12px;
+  .file-size { font-size: 11px; color: #3d3a52; white-space: nowrap; }
+
+  .file-remove {
+    background: none;
+    border: none;
+    color: #3d3a52;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 4px;
+    transition: color 0.2s;
+    font-family: 'DM Mono', monospace;
   }
+
+  .file-remove:hover { color: #f87171; }
+
+  /* Docs bar */
+  .docs-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #13121a;
+    border: 1px solid #2a2838;
+    border-radius: 8px;
+    margin-bottom: 32px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .docs-bar-info { font-size: 12px; color: #6b6880; font-weight: 300; }
+  .docs-bar-info span { color: #a294f5; }
+
+  /* Sources page */
+  .sources-page { max-width: 860px; margin: 0 auto; padding: 60px 32px; animation: fadeUp 0.4s ease both; }
+  .sources-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; gap: 20px; flex-wrap: wrap; }
+  .sources-title { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: #f0eeff; letter-spacing: -0.02em; }
+  .sources-subtitle { font-size: 12px; color: #3d3a52; margin-top: 6px; font-weight: 300; }
+
+  .chunk-card { background: #13121a; border: 1px solid #2a2838; border-radius: 12px; padding: 28px; margin-bottom: 20px; transition: border-color 0.2s; }
+  .chunk-card:hover { border-color: #3d3a52; }
+  .chunk-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+  .chunk-rank { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #7c6de8; }
+  .chunk-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .chunk-source { font-size: 11px; color: #3d3a52; background: #1c1a2e; padding: 3px 10px; border-radius: 20px; border: 1px solid #2a2838; }
+  .chunk-page   { font-size: 11px; color: #bbf7d0; background: #0d2e1a; padding: 3px 10px; border-radius: 20px; border: 1px solid #166534; }
+  .chunk-score  { font-size: 11px; color: #a294f5; font-weight: 500; }
+  .chunk-text { font-size: 13px; line-height: 1.9; color: #9e9bb8; font-weight: 300; border-left: 2px solid #2a2838; padding-left: 16px; }
+  .chunk-score-bar { margin-top: 18px; height: 2px; background: #2a2838; border-radius: 2px; overflow: hidden; }
+  .chunk-score-fill { height: 100%; background: linear-gradient(90deg, #6b5fd6, #a294f5); border-radius: 2px; }
+
+  /* Trace page */
+  .trace-page { max-width: 860px; margin: 0 auto; padding: 60px 32px; animation: fadeUp 0.4s ease both; }
+  .trace-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 40px; gap: 20px; flex-wrap: wrap; }
+  .trace-title { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: #f0eeff; letter-spacing: -0.02em; }
+  .trace-total { font-size: 11px; color: #4ade80; margin-top: 4px; letter-spacing: 0.05em; }
+
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, #2a2838, #2a2838 90%, transparent); }
+
+  .trace-item { position: relative; margin-bottom: 28px; animation: fadeUp 0.4s ease both; }
+  .trace-item:nth-child(1){animation-delay:.05s} .trace-item:nth-child(2){animation-delay:.10s}
+  .trace-item:nth-child(3){animation-delay:.15s} .trace-item:nth-child(4){animation-delay:.20s}
+  .trace-item:nth-child(5){animation-delay:.25s} .trace-item:nth-child(6){animation-delay:.30s}
+  .trace-item:nth-child(7){animation-delay:.35s} .trace-item:nth-child(8){animation-delay:.40s}
+
+  .trace-dot { position: absolute; left: -33px; top: 14px; width: 10px; height: 10px; border-radius: 50%; background: #7c6de8; border: 2px solid #0a0a0f; box-shadow: 0 0 0 1px #7c6de8; }
+  .trace-dot.last { background: #4ade80; box-shadow: 0 0 0 1px #4ade80; }
+
+  .trace-card { background: #13121a; border: 1px solid #2a2838; border-radius: 10px; padding: 20px 24px; transition: border-color 0.2s; }
+  .trace-card:hover { border-color: #3d3a52; }
+  .trace-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .trace-step-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #3d3a52; font-weight: 500; }
+  .trace-step-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #f0eeff; margin-bottom: 2px; }
+  .trace-duration { font-size: 11px; color: #4ade80; background: #0d2e1a; padding: 2px 10px; border-radius: 20px; border: 1px solid #166534; white-space: nowrap; }
+  .trace-detail { font-size: 12px; line-height: 1.8; color: #6b6880; white-space: pre-wrap; font-weight: 300; margin-top: 8px; border-left: 2px solid #1c1a2e; padding-left: 12px; }
 `;
 
 function SourcesPage({ chunks, question, onBack }) {
@@ -603,7 +512,6 @@ function SourcesPage({ chunks, question, onBack }) {
         </div>
         <button className="btn-back" onClick={onBack}>← Back to answer</button>
       </div>
-
       {chunks.map((chunk, i) => (
         <div className="chunk-card" key={i}>
           <div className="chunk-top">
@@ -626,7 +534,6 @@ function SourcesPage({ chunks, question, onBack }) {
 
 function TracePage({ traces, question, onBack }) {
   const totalMs = traces.length > 0 ? traces[traces.length - 1].duration_ms : 0;
-
   return (
     <div className="trace-page">
       <div className="trace-header">
@@ -638,7 +545,6 @@ function TracePage({ traces, question, onBack }) {
         </div>
         <button className="btn-back" onClick={onBack}>← Back to answer</button>
       </div>
-
       <div className="timeline">
         {traces.map((trace, i) => (
           <div className="trace-item" key={i}>
@@ -661,18 +567,78 @@ function TracePage({ traces, question, onBack }) {
 }
 
 export default function App() {
+  const [page, setPage] = useState("upload");
+  const [uploadedDocs, setUploadedDocs] = useState([]);
+  const [totalChunks, setTotalChunks] = useState(0);
+  const [files, setFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
+
   const [question, setQuestion] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState("main");
 
+  // ---- Upload handlers ----
+  const handleFileSelect = (e) => {
+    const selected = Array.from(e.target.files).filter(f => f.name.endsWith(".pdf"));
+    setFiles(prev => [...prev, ...selected]);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+    const dropped = Array.from(e.dataTransfer.files).filter(f => f.name.endsWith(".pdf"));
+    setFiles(prev => [...prev, ...dropped]);
+  };
+
+  const removeFile = (index) => {
+    setFiles(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const formatSize = (bytes) => {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  };
+
+  const handleUpload = async () => {
+    if (files.length === 0) return;
+    setUploading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      files.forEach(f => formData.append("files", f));
+
+      const response = await fetch("http://127.0.0.1:8000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error(`Upload failed: ${response.status}`);
+      const data = await response.json();
+
+      setUploadedDocs(data.files);
+      setTotalChunks(data.total_chunks);
+      setFiles([]);
+      setResult(null);
+      setQuestion("");
+      setPage("ask");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // ---- Ask handlers ----
   const askQuestion = async () => {
     if (!question.trim()) return;
     setLoading(true);
     setError(null);
     setResult(null);
-    setPage("main");
+    setPage("ask");
 
     try {
       const response = await fetch("http://127.0.0.1:8000/ask", {
@@ -680,7 +646,6 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
       });
-
       if (!response.ok) throw new Error(`Server error: ${response.status}`);
       const data = await response.json();
       setResult(data);
@@ -691,33 +656,83 @@ export default function App() {
     }
   };
 
-  const handleKey = (e) => {
-    if (e.key === "Enter") askQuestion();
-  };
+  const handleKey = (e) => { if (e.key === "Enter") askQuestion(); };
 
   const confidencePct = result ? Math.round(result.confidence * 100) : 0;
   const badgeClass =
     result?.confidence_level === "high"   ? "badge-high"   :
     result?.confidence_level === "low"    ? "badge-low"    : "badge-medium";
 
+  // ---- Page routing ----
   if (page === "sources" && result?.chunks) {
-    return (
-      <>
-        <style>{styles}</style>
-        <SourcesPage chunks={result.chunks} question={question} onBack={() => setPage("main")} />
-      </>
-    );
+    return (<><style>{styles}</style><SourcesPage chunks={result.chunks} question={question} onBack={() => setPage("ask")} /></>);
   }
 
   if (page === "trace" && result?.traces) {
+    return (<><style>{styles}</style><TracePage traces={result.traces} question={question} onBack={() => setPage("ask")} /></>);
+  }
+
+  // ---- Upload page ----
+  if (page === "upload") {
     return (
       <>
         <style>{styles}</style>
-        <TracePage traces={result.traces} question={question} onBack={() => setPage("main")} />
+        <div className="app">
+          <div className="header">
+            <div className="header-label">XAI v1.0</div>
+            <h1>Explainable <span>AI</span></h1>
+          </div>
+
+          <div
+            className={`upload-zone ${dragging ? "dragging" : ""}`}
+            onClick={() => document.getElementById("file-input").click()}
+            onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={handleDrop}
+          >
+            <div className="upload-icon">📄</div>
+            <div className="upload-title">Drop your PDF papers here</div>
+            <div className="upload-sub">or <span>click to browse</span> — PDF files only</div>
+            <input
+              id="file-input"
+              type="file"
+              accept=".pdf"
+              multiple
+              style={{ display: "none" }}
+              onChange={handleFileSelect}
+            />
+          </div>
+
+          {files.length > 0 && (
+            <div className="file-list">
+              {files.map((file, i) => (
+                <div className="file-item" key={i}>
+                  <span className="file-icon">📄</span>
+                  <span className="file-name">{file.name}</span>
+                  <span className="file-size">{formatSize(file.size)}</span>
+                  <button className="file-remove" onClick={(e) => { e.stopPropagation(); removeFile(i); }}>✕</button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {error && <div className="error-card">Error: {error}</div>}
+
+          <button
+            className="btn-primary-full"
+            onClick={handleUpload}
+            disabled={files.length === 0 || uploading}
+          >
+            {uploading
+              ? <><span className="spinner-green" />Indexing documents...</>
+              : `Index ${files.length > 0 ? files.length : ""} Document${files.length !== 1 ? "s" : ""}`}
+          </button>
+        </div>
       </>
     );
   }
 
+  // ---- Ask page ----
   return (
     <>
       <style>{styles}</style>
@@ -726,6 +741,17 @@ export default function App() {
         <div className="header">
           <div className="header-label">XAI v1.0</div>
           <h1>Explainable <span>AI</span></h1>
+        </div>
+
+        <div className="docs-bar">
+          <div className="docs-bar-info">
+            <span>{uploadedDocs.length} document{uploadedDocs.length !== 1 ? "s" : ""}</span> indexed
+            &nbsp;·&nbsp; <span>{totalChunks} chunks</span> in vector store
+            &nbsp;·&nbsp; {uploadedDocs.join(", ")}
+          </div>
+          <button className="btn-change" onClick={() => { setResult(null); setPage("upload"); }}>
+            Change docs
+          </button>
         </div>
 
         <div className="search-row">
@@ -761,7 +787,6 @@ export default function App() {
                   <div className="bar-fill" style={{ width: `${confidencePct}%` }} />
                 </div>
               </div>
-
               <div className="card">
                 <div className="card-label">Confidence level</div>
                 <div className="confidence-val" style={{ fontSize: "20px", marginTop: "4px" }}>
@@ -775,7 +800,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Source Location Card */}
             {result.chunks?.length > 0 && (
               <div className="card">
                 <div className="card-label">Source Location</div>

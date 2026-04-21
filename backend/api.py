@@ -1,10 +1,12 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List
 
 import sys
 import os
 import time
+import shutil
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_PATH = os.path.join(BASE_DIR, "src")
@@ -34,34 +36,103 @@ class Query(BaseModel):
     question: str
 
 
-# -------- LOAD YOUR PIPELINE ON SERVER START -------- #
+# -------- GLOBAL PIPELINE VARIABLES -------- #
 
-print("Loading RAG pipeline...")
+search_engine = None
+generator = None
+explainer = None
+pipeline_ready = False
+
+print("Server ready — waiting for document upload.")
+
+
+# -------- HELPER: BUILD PIPELINE -------- #
+
+def build_pipeline(folder):
+    global search_engine, generator, explainer, pipeline_ready
+
+    chunks = load_all_papers(folder)
+    texts = [c["chunk"] for c in chunks]
+
+    embedder = Embedder()
+    embeddings = embedder.embed(texts)
+    dimension = embeddings.shape[1]
+
+    vector_db = VectorStore(dimension)
+    vector_db.add_embeddings(embeddings)
+
+    search_engine = SearchEngine(embedder, vector_db, chunks)
+    generator = AnswerGenerator()
+    explainer = Explainer()
+    pipeline_ready = True
+
+    return len(chunks)
+
+
+# -------- AUTO LOAD IF PAPERS EXIST -------- #
 
 folder = os.path.join(BASE_DIR, "data", "papers")
-chunks = load_all_papers(folder)
-texts = [c["chunk"] for c in chunks]
-embedder = Embedder()
-embeddings = embedder.embed(texts)
-dimension = embeddings.shape[1]
-vector_db = VectorStore(dimension)
-vector_db.add_embeddings(embeddings)
-search_engine = SearchEngine(embedder, vector_db, chunks)
-generator = AnswerGenerator()
-explainer = Explainer()
-
-print("Pipeline ready!")
+if os.path.exists(folder) and any(f.endswith(".pdf") for f in os.listdir(folder)):
+    print("Found existing papers, loading pipeline...")
+    build_pipeline(folder)
+    print("Pipeline ready!")
 
 
 # -------- API ROUTES -------- #
 
 @app.get("/")
 def home():
-    return {"message": "XAI RAG API running"}
+    return {"message": "XAI RAG API running", "pipeline_ready": pipeline_ready}
+
+
+@app.post("/upload")
+def upload_documents(files: List[UploadFile] = File(...)):
+    upload_folder = os.path.join(BASE_DIR, "data", "papers")
+    os.makedirs(upload_folder, exist_ok=True)
+
+    # Clear old PDFs
+    for f in os.listdir(upload_folder):
+        if f.endswith(".pdf"):
+            os.remove(os.path.join(upload_folder, f))
+
+    # Save new uploaded files
+    uploaded_names = []
+    for file in files:
+        if not file.filename.endswith(".pdf"):
+            continue
+        dest = os.path.join(upload_folder, file.filename)
+        with open(dest, "wb") as f:
+            shutil.copyfileobj(file.file, f)
+        uploaded_names.append(file.filename)
+
+    if not uploaded_names:
+        return {"error": "No valid PDF files uploaded."}
+
+    # Rebuild pipeline
+    print(f"Rebuilding pipeline with {len(uploaded_names)} documents...")
+    total_chunks = build_pipeline(upload_folder)
+    print("Pipeline rebuilt!")
+
+    return {
+        "message": f"Successfully uploaded and indexed {len(uploaded_names)} documents",
+        "files": uploaded_names,
+        "total_chunks": total_chunks
+    }
 
 
 @app.post("/ask")
 def ask_question(query: Query):
+
+    if not pipeline_ready:
+        return {
+            "answer": "No documents uploaded yet. Please upload PDFs first.",
+            "confidence": 0.0,
+            "reasoning": "",
+            "keywords": None,
+            "chunks": [],
+            "traces": []
+        }
+
     traces = []
     start_total = time.time()
 
