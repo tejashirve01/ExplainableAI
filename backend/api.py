@@ -1,18 +1,18 @@
+import sys
+import os
+
+# Fix path for both local and Docker environments
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_PATH = os.path.join(BASE_DIR, "src")
+sys.path.insert(0, SRC_PATH)
+
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
 
-import sys
-import os
 import time
 import shutil
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_PATH = os.path.join(BASE_DIR, "src")
-
-sys.path.append(SRC_PATH)
-
 from pdf_loader import load_all_papers
 from embedder import Embedder
 from vector_store import VectorStore
