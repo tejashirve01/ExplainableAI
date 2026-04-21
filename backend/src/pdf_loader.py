@@ -1,12 +1,12 @@
 import fitz
 import os
-from backend.src.chunker import chunk_text
-from backend.src.embedder import Embedder
-from backend.src.vector_store import VectorStore
-from backend.src.search_engine import SearchEngine
-from backend.src.answer_generator import AnswerGenerator
-from backend.src.explainer import Explainer
-from backend.src.sentence_explainer import SentenceExplainer
+from chunker import chunk_text
+from embedder import Embedder
+from vector_store import VectorStore
+from search_engine import SearchEngine
+from answer_generator import AnswerGenerator
+from explainer import Explainer
+from sentence_explainer import SentenceExplainer
 
 
 def extract_text_from_pdf(pdf_path):
