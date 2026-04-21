@@ -611,7 +611,7 @@ export default function App() {
       const formData = new FormData();
       files.forEach(f => formData.append("files", f));
 
-      const response = await fetch("http://127.0.0.1:8000/upload", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -641,7 +641,7 @@ export default function App() {
     setPage("ask");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/ask", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
