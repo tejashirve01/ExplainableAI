@@ -13,12 +13,12 @@ from typing import List
 
 import time
 import shutil
-from pdf_loader import load_all_papers
-from embedder import Embedder
-from vector_store import VectorStore
-from search_engine import SearchEngine
-from answer_generator import AnswerGenerator
-from explainer import Explainer
+from backend.src.pdf_loader import load_all_papers
+from backend.src.embedder import Embedder
+from backend.src.vector_store import VectorStore
+from backend.src.search_engine import SearchEngine
+from backend.src.answer_generator import AnswerGenerator
+from backend.src.explainer import Explainer
 
 
 app = FastAPI()
